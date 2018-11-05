@@ -30,7 +30,7 @@
                             <input type="hidden" name="_method" value="DELETE">
                             {{ csrf_field() }}
 
-                            <a href="{{route('admin.article.edit', $category)}}" class="btn btn-default"><i class="fa fa-edit"></i></a>
+                            <a href="{{route('admin.article.edit', $article)}}" class="btn btn-default"><i class="fa fa-edit"></i></a>
 
                             <button type="submit" class="btn"><i class="fa fa-trash-o"></i></button>
                         </form>
