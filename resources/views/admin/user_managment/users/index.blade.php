@@ -27,6 +27,7 @@
                     <td class="text-right">
                         <form onsubmit="if(confirm('Удалить?')){ return true }else{  return false }" method="post"
                               action="{{route('admin.user_managment.user.destroy', $user)}}">
+                            <input type="hidden" name="_method" value="DELETE">
                             {{ csrf_field() }}
 
                             <a href="{{route('admin.user_managment.user.edit', $user)}}" class="btn btn-default"><i class="fa fa-edit"></i></a>

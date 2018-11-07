@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\UserManagment;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -16,7 +17,7 @@ class UserController extends Controller
     public function index()
     {
         return view('admin.user_managment.users.index', [
-            'users' => User::paginate(10)
+            'users' => User::paginate(2),
         ]);
     }
 
@@ -27,24 +28,38 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.user_managment.users.create', [
+            'user' => []
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $validator = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+
+        User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => bcrypt($request['password']),
+        ]);
+
+        return redirect()->route('admin.user_managment.user.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -55,34 +70,56 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
     {
-        //
+        return view('admin.user_managment.users.edit', [
+            'user' => $user
+        ]);
+
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
     {
-        //
+        $validator = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users')->ignore($user->id)
+            ],
+            'password' => 'nullable|string|min:6|confirmed',
+        ]);
+
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+        $request['password'] == null ?: $user->password = bcrypt($request['password']);
+        $user->save();
+
+        return redirect()->route('admin.user_managment.user.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()->route('admin.user_managment.user.index');
     }
 }
