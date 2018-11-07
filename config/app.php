@@ -178,7 +178,7 @@ return [
 
         //Our packages
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-        Unisharp\Ckeditor\ServiceProvider::class,
+        App\Providers\BlogServiceProvider::class,
 
     ],
 
