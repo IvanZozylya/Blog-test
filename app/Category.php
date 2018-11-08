@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 /**
- * @method static paginate(int $int)
- * @method static lastCategories()
  */
 class Category extends Model
 {
