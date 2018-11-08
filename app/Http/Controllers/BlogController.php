@@ -12,8 +12,8 @@ class BlogController extends Controller
     {
         $category = Category::where('slug', $slug)->first();
 
-        return view('blog.category', [
-            'category' => $category,
+        return view('blog.categories', [
+            'categories' => $category,
             'articles' => $category->articles()->where('published', 1)->paginate(12),
         ]);
     }

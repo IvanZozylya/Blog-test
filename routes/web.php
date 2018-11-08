@@ -12,8 +12,8 @@
 */
 
 
-Route::get('/blog/category/{slug?}','BlogController@category')->name('category');
 Route::get('/blog/article/{slug?}','BlogController@article')->name('article');
+
 
 Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth']],function(){
     Route::get('/', 'DashboardController@dashboard')->name('admin.index');
@@ -24,11 +24,13 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth']],fun
     });
 });
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', function () {
     return view('blog.home');
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/categories','CategoryController@index')->name('all_categories');
+Route::get('/categories/{slug?}','CategoryController@show')->name('show_category');

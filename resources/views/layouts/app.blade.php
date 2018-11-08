@@ -34,6 +34,9 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+                <a class="navbar-brand" href="{{ route('all_categories') }}">
+                    Categories
+                </a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -67,10 +70,13 @@
                     @endguest
                 </ul>
             </div>
+        </div>
+    </nav>
 
 
     @yield('content')
 </div>
+
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>

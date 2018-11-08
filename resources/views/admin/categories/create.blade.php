@@ -10,13 +10,13 @@
             @slot('active') Категории @endslot
         @endcomponent
 
-            <hr />
+        <hr />
 
-            <form action="{{route('admin.category.store')}}" class="form-horizontal" method="post">
-                {{csrf_field()}}
-                @include('admin.categories.partials.form')
+        <form action="{{route('admin.category.store')}}" class="form-horizontal" method="post">
+            {{csrf_field()}}
+            @include('admin.categories.partials.form')
 
-                <input type="hidden" name="created_by" value="{{Auth::id()}}">
-            </form>
+            <input type="hidden" name="created_by" value="{{Auth::id()}}">
+        </form>
     </div>
 @endsection
