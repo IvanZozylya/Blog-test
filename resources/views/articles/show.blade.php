@@ -9,6 +9,7 @@
             <div class="col-sm-12">
                 <h1>Title:</h1><h1 class="btn-primary"> <strong>{{$article->title}}</strong></h1>
                IMAGE:-------------------------------
+                <img src="{{url($article->image)}}" alt="{{asset("$article->image")}}">
                 <hr>
                 <h3>Short_description:</h3><h3 class="btn-primary"><strong>{!! $article->description_short !!}</strong></h3>
                 <h3>Description:</h3><br>

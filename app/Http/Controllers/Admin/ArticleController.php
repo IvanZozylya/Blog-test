@@ -6,7 +6,8 @@ use App\Article;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
+
 
 class ArticleController extends Controller
 {
@@ -44,28 +45,29 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'image' => 'required|image|mimes:jpeg,png,jpg,giv,svg|max:2048',
+        ]);
         if ($request->hasFile('image')) {
 
-            $this->validate($request, [
-                'image' => 'required|image|mimes:jpeg,png,jpg,giv,svg|max:2048',
-            ]);
-
             if ($request->file('image')->isValid()) {
+                $imageName = time().'.'.$request->image->getClientOriginalExtension();
 
-                $file = $request->file('image');
-                $imageName = time() . '.' . $request->image->extension();
-                $file->move(public_path('image'),$imageName);
-
+                $request->image->move(public_path('images'), $imageName);
+//                $article = new Article;
+//                $article->title = $request->title;
+//                $article->slug = $request->slug;
+//                $article->description = $request->description;
+//                $article->description_short = $request->description_short;
+//                $article->published = $request->published;
+//                $article->image = '/images/'.$imageName;
+//                $article->save();
             }
         }
 
-
-//        $imageName = time().'.'.$request->image->getClientOriginalExtension();
-//
-//        $request->image->move(public_path('image'), $imageName);
-
         $article = Article::create($request->all());
 
+//
         // Categories
         if ($request->input('categories')) :
             $article->categories()->attach($request->input('categories'));

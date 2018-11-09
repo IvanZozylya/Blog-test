@@ -28,6 +28,9 @@ Route::get('/', function () {
     return view('blog.home');
 });
 
+Route::get('profile','UserController@profile');
+Route::post('profile', 'UserController@update_avatar');
+
 Route::get('/categories','CategoryController@index')->name('all_categories');
 Route::get('/categories/{slug?}','CategoryController@show')->name('show_category');
 Route::get('/article/{slug?}','ArticleController@show')->name('show_article');

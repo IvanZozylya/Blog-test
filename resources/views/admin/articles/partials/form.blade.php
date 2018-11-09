@@ -27,7 +27,7 @@
 <textarea class="form-control" id="description" name="description">{{$article->description or ""}}</textarea>
 
 <label for="">Загрузка изображения</label>
-<input type="file" name="image" accept="image/*">
+<input type="file" name="image" accept="image/*" id="image">
 <hr />
 
 
