@@ -17,7 +17,7 @@
 
 <label for="">Родительская категория</label>
 <select class="form-control" name="categories[]" multiple="">
-    @include('admin.articles.partials.categories', ['categories' => $categories])
+    @include('articles.partials.categories', ['categories' => $categories])
 </select>
 
 <label for="">Краткое описание</label>
@@ -27,9 +27,8 @@
 <textarea class="form-control" id="description" name="description">{{$article->description or ""}}</textarea>
 
 <label for="">Загрузка изображения</label>
-<input type="file" name="image" accept="image/*">
+<input type="file" name="image" id="">
 <hr />
-
 
 <label for="">Мета заголовок</label>
 <input type="text" class="form-control" name="meta_title" placeholder="Мета заголовок" value="{{$article->meta_title or ""}}">

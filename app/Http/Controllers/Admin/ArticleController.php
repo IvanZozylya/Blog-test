@@ -6,6 +6,7 @@ use App\Article;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class ArticleController extends Controller
 {
@@ -29,24 +30,44 @@ class ArticleController extends Controller
     public function create()
     {
         return view('admin.articles.create', [
-            'article'    => [],
+            'article' => [],
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
-            'delimiter'  => ''
+            'delimiter' => ''
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        if ($request->hasFile('image')) {
+
+            $this->validate($request, [
+                'image' => 'required|image|mimes:jpeg,png,jpg,giv,svg|max:2048',
+            ]);
+
+            if ($request->file('image')->isValid()) {
+
+                $file = $request->file('image');
+                $imageName = time() . '.' . $request->image->extension();
+                $file->move(public_path('image'),$imageName);
+
+            }
+        }
+
+
+//        $imageName = time().'.'.$request->image->getClientOriginalExtension();
+//
+//        $request->image->move(public_path('image'), $imageName);
+
         $article = Article::create($request->all());
 
         // Categories
-        if($request->input('categories')) :
+        if ($request->input('categories')) :
             $article->categories()->attach($request->input('categories'));
         endif;
 
@@ -56,7 +77,7 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Article  $article
+     * @param  \App\Article $article
      * @return \Illuminate\Http\Response
      */
     public function show(Article $article)
@@ -67,23 +88,23 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Article  $article
+     * @param  \App\Article $article
      * @return \Illuminate\Http\Response
      */
     public function edit(Article $article)
     {
         return view('admin.articles.edit', [
-            'article'    => $article,
+            'article' => $article,
             'categories' => Category::with('children')->where('parent_id', 0)->get(),
-            'delimiter'  => ''
+            'delimiter' => ''
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Article  $article
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Article $article
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Article $article)
@@ -92,7 +113,7 @@ class ArticleController extends Controller
 
         // Categories
         $article->categories()->detach();
-        if($request->input('categories')) :
+        if ($request->input('categories')) :
             $article->categories()->attach($request->input('categories'));
         endif;
 
@@ -102,7 +123,7 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Article  $article
+     * @param  \App\Article $article
      * @return \Illuminate\Http\Response
      */
     public function destroy(Article $article)
@@ -112,4 +133,6 @@ class ArticleController extends Controller
 
         return redirect()->route('admin.article.index');
     }
+
 }
+

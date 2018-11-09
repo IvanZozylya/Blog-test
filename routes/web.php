@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/article/{slug?}','ArticleController@show')->name('article');
 
 Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth']],function(){
     Route::get('/', 'DashboardController@dashboard')->name('admin.index');
@@ -31,3 +30,6 @@ Route::get('/', function () {
 
 Route::get('/categories','CategoryController@index')->name('all_categories');
 Route::get('/categories/{slug?}','CategoryController@show')->name('show_category');
+Route::get('/article/{slug?}','ArticleController@show')->name('show_article');
+Route::get('/blog/article/create','ArticleController@create')->name('create_article');
+
