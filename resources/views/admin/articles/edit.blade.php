@@ -12,7 +12,16 @@
 
         <hr />
 
-        <form class="form-horizontal" action="{{route('admin.article.update', $article)}}" method="post">
+            @if(count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        <form class="form-horizontal" action="{{route('admin.article.update', $article)}}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="_method" value="put">
             {{ csrf_field() }}
 

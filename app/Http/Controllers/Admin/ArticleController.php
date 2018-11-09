@@ -46,26 +46,39 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'image' => 'required|image|mimes:jpeg,png,jpg,giv,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,giv,svg|max:2048',
         ]);
+        // Handle the user upload of avatar
         if ($request->hasFile('image')) {
 
-            if ($request->file('image')->isValid()) {
-                $imageName = time().'.'.$request->image->getClientOriginalExtension();
 
-                $request->image->move(public_path('images'), $imageName);
-//                $article = new Article;
-//                $article->title = $request->title;
-//                $article->slug = $request->slug;
-//                $article->description = $request->description;
-//                $article->description_short = $request->description_short;
-//                $article->published = $request->published;
-//                $article->image = '/images/'.$imageName;
-//                $article->save();
+            //verify validation
+            if ($request->file('image')->isValid()) {
+
+                //save new image
+                $image = $request->file('image');
+                $filename = time() . '.' . $image->getClientOriginalExtension();
+                Image::make($image)->resize(700, 500)->save(public_path('images/uploads/articles/' . $filename));
+
             }
+        } else {
+
+          $filename = 'default.jpg';
         }
 
-        $article = Article::create($request->all());
+        $article = Article::create([
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'description' => $request->description,
+            'description_short' => $request->description_short,
+            'published' => $request->published,
+            'image' => $filename,
+            'meta_title' => $request->meta_title,
+            'meta_description' => $request->meta_description,
+            'meta_keyword' => $request->meta_keyword,
+            'created_by' => $request->created_by,
+        ]);
+
 
 //
         // Categories
@@ -111,7 +124,38 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        $article->update($request->except('slug'));
+        $this->validate($request, [
+            'image' => 'image|mimes:jpeg,png,jpg,giv,svg|max:2048',
+        ]);
+
+        // Handle the user upload of avatar
+        if ($request->hasFile('image')) {
+
+
+            //verify validation
+            if ($request->file('image')->isValid()) {
+
+                //save new image
+                $image = $request->file('image');
+                $filename = time() . '.' . $image->getClientOriginalExtension();
+                Image::make($image)->resize(700, 500)->save(public_path('images/uploads/articles/' . $filename));
+
+            }
+        } else {
+            $filename = $article->image;
+        }
+
+        $article->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'description_short' => $request->description_short,
+            'published' => $request->published,
+            'image' => $filename,
+            'meta_title' => $request->meta_title,
+            'meta_description' => $request->meta_description,
+            'meta_keyword' => $request->meta_keyword,
+            'modified_by' => $request->modified_by,
+        ]);
 
         // Categories
         $article->categories()->detach();
