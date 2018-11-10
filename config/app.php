@@ -180,6 +180,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         App\Providers\BlogServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Klisl\Comments\CommentsServiceProvider::class,
 
     ],
 

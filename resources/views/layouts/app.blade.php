@@ -13,7 +13,8 @@
     <meta name="description" content="@yield('meta_description')">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="all" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" type="text/css" media="all" href="{{asset('comments/css/comments.css')}}">
 </head>
 <body>
 <div id="app">
@@ -81,6 +82,10 @@
 
 
 <!-- Scripts -->
+
 <script src="{{ asset('js/app.js') }}"></script>
+
+<script src="{{asset('comments/js/comment-reply.js')}}"></script>
+<script type="text/javascript" src="{{asset('comments/js/comment-scripts.js')}}"></script>
 </body>
 </html>
