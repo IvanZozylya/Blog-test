@@ -20,7 +20,7 @@
             </div>
             <div class="col-sm-3">
                 <div class="jumbotron">
-                    <p><span class="label label-primary"><a href="#" style="color: white">Комментарии</a> {{$count_comments}}</span></p>
+                    <p><span class="label label-primary"><a href="{{route('admin.comment.index')}}" style="color: white">Комментарии</a> {{$count_comments}}</span></p>
                 </div>
             </div>
         </div>
