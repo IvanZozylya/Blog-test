@@ -22,18 +22,22 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth']],fun
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/', function () {
-    return view('blog.home');
+    return view('home');
 });
 
-Route::get('profile','UserController@profile');
-Route::post('profile', 'UserController@update_avatar');
+//Профиль
+Route::get('profile','UserController@profile')->middleware('auth');
+Route::post('profile', 'UserController@update_avatar')->middleware('auth');
 
+//Категории
 Route::get('/categories','CategoryController@index')->name('all_categories');
 Route::get('/categories/{slug?}','CategoryController@show')->name('show_category');
+
+//Посты
 Route::get('/article/{slug?}','ArticleController@show')->name('show_article');
 Route::get('/blog/article/create','ArticleController@create')->middleware('auth')->name('create_article');
 Route::post('/blog/article/store','ArticleController@store')->middleware('auth')->name('store_article');
+
+//Комментарии
 Route::post('/comment','CommentController@store')->middleware('auth')->name('store_comment');

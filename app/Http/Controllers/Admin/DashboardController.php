@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Article;
 use App\Category;
+use App\User;
+use App\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -18,6 +20,8 @@ class DashboardController extends Controller
             'articles'   => Article::lastArticles(5),
             'count_categories' => Category::count(),
             'count_articles' => Article::count(),
+            'count_users' => User::count(),
+            'count_comments' => Comment::count(),
         ]);
     }
 }

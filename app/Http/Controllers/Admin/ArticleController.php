@@ -47,6 +47,10 @@ class ArticleController extends Controller
     {
         $this->validate($request, [
             'image' => 'image|mimes:jpeg,png,jpg,giv,svg|max:2048',
+            'title' =>'required|string|min:6',
+            'published' =>'required|boolean',
+            'description_short' =>'required|max:30',
+            'description' =>'required|max:2048|min:10'
         ]);
         // Handle the user upload of avatar
         if ($request->hasFile('image')) {

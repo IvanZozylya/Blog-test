@@ -25,7 +25,7 @@
 <textarea class="form-control" id="description" name="description" required>{{$article->description or ""}}</textarea>
 
 <label for="">Загрузка изображения</label>
-<input type="file" name="image" id="">
+<input type="file" name="image" id="" accept="image/*">
 <hr />
 
 <input type="hidden" class="form-control" name="meta_title" placeholder="Мета заголовок" value="{{$article->meta_title or "Мета заголовок"}}">
