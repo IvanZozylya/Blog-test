@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
     /**
-     * Связь с моделью Article
+     * Связь с моделью Post
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function article()
@@ -25,4 +28,5 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
 }
