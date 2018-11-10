@@ -34,5 +34,6 @@ Route::post('profile', 'UserController@update_avatar');
 Route::get('/categories','CategoryController@index')->name('all_categories');
 Route::get('/categories/{slug?}','CategoryController@show')->name('show_category');
 Route::get('/article/{slug?}','ArticleController@show')->name('show_article');
-Route::get('/blog/article/create','ArticleController@create')->name('create_article');
+Route::get('/blog/article/create','ArticleController@create')->middleware('auth')->name('create_article');
+Route::post('/blog/article/store','ArticleController@store')->middleware('auth')->name('store_article');
 

@@ -3,7 +3,9 @@
 @section('title' , $category->title . " Ivan - Developer")
 
 @section('content')
+    @if(Auth::user())
     <h4 class="btn btn-success label-info"><a href="{{route('create_article')}}" style="color:black">Create article</a></h4>
+    @endif
     <div class="container">
         @forelse($articles as $article)
             <div class="row">

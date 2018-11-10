@@ -17,6 +17,11 @@
 
                 <h1>Author:<span class="btn-primary"> <strong>{{$user->name}}</strong></span></h1>
             </div>
+            <hr>
+            <div class="row">
+                    <h3>Comments</h3>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
