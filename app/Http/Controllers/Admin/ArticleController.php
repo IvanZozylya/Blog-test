@@ -30,7 +30,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.create', [
+        return view('admin.articles.create', [
             'article' => [],
             'categories' => Category::all(),
             'delimiter' => ''

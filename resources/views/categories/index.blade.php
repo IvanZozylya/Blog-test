@@ -2,16 +2,18 @@
 
 @section('title','Category')
 @section('content')
-
-    <h1>List Categories: </h1>
     <div class="container">
+        <h1>List Categories: </h1>
         @foreach($categories as $category)
-            <h2><a href="{{route('show_category', $category->slug)}}">{{$category->title}}</a></h2>
-            <li>Опубликовано: {{$category->created_at}}</li>
+            <div class="col-md-4 category-block">
+                <div class="category-block-content" onclick="window.location='{{ route('show_category', $category->slug) }}'">
+                    <p class="category-title">{{$category->title}}</p>
+                    <span>Опубликовано: {{$category->created_at}}</span>
+                </div>
+            </div>
         @endforeach
-
-    <div class="pagination pull-left">
-        {{ $categories->links() }}
-    </div>
+        <div class="pagination pull-left">
+            {{ $categories->links() }}
+        </div>
     </div>
 @endsection

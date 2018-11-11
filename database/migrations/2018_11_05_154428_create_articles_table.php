@@ -26,7 +26,6 @@ class CreateArticlesTable extends Migration
             $table->boolean('published');
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('categories');
-            $table->integer('viewed')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('modified_by')->nullable();
             $table->timestamps();
