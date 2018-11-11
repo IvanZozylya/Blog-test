@@ -10,7 +10,7 @@ class Article extends Model
 {
     // Mass assigned
     protected $fillable = ['title', 'slug', 'description_short', 'description', 'image', 'image_show',
-        'meta_title', 'meta_description', 'meta_keyword', 'published', 'created_by', 'modified_by'];
+        'meta_title', 'meta_description', 'meta_keyword', 'published', 'created_by', 'modified_by','category_id'];
 
     // Mutators
     public function setSlugAttribute($value) {

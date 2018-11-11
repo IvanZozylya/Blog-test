@@ -15,10 +15,13 @@
 <label for="">Slug (Уникальное значение)</label>
 <input class="form-control" type="text" name="slug" placeholder="Автоматическая генерация" value="{{$article->slug or ""}}" readonly="">
 
-<label for="">Родительская категория</label>
-<select class="form-control" name="categories[]" multiple="">
-    @include('admin.articles.partials.categories', ['categories' => $categories])
+<label for="">Выберите категорию</label>
+<select class="form-control" name="category_id" required>
+        @foreach($categories as $category)
+                <option value="{{$category->id}}" >{{$category->title}}</option>
+        @endforeach
 </select>
+<br>
 
 <label for="">Краткое описание</label>
 <textarea class="form-control" id="description_short" name="description_short">{{$article->description_short or ""}}</textarea>

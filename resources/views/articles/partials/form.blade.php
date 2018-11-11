@@ -11,13 +11,17 @@
 <label for="">Заголовок</label>
 <input type="text" class="form-control" name="title" placeholder="Заголовок новости" value="{{$article->title or ""}}" required>
 
-<input  type="hidden" name="slug" placeholder="Автоматическая генерация" value="{{$article->slug or ""}}" readonly="">
+<input type="hidden" name="slug" value="{{$article->slug or ""}}">
 
-<label for="">Родительская категория</label>
-<select class="form-control" name="categories[]" multiple="" required>
-    @include('articles.partials.categories', ['categories' => $categories])
+<input type="hidden" name="category_id" value="{{$article->category_id or ""}}">
+
+<label for="">Выберите категорию</label>
+<select class="form-control" name="category_id" required>
+        @foreach($categories as $category)
+                <option value="{{$category->id}}" >{{$category->title}}</option>
+        @endforeach
 </select>
-
+<br>
 <label for="">Краткое описание</label>
 <textarea class="form-control" id="description_short" name="description_short" required>{{$article->description_short or ""}}</textarea>
 
