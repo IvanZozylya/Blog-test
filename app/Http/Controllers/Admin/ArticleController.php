@@ -68,7 +68,7 @@ class ArticleController extends Controller
             }
         } else {
 
-          $filename = 'default.jpg';
+            $filename = 'default.jpg';
         }
 
         $article = Article::create([
@@ -84,13 +84,6 @@ class ArticleController extends Controller
             'meta_keyword' => $request->meta_keyword,
             'created_by' => $request->created_by,
         ]);
-
-
-//
-        // Categories
-        if ($request->input('categories')) :
-            $article->categories()->attach($request->input('categories'));
-        endif;
 
         return redirect()->route('admin.article.index');
     }

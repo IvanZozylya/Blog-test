@@ -23,12 +23,6 @@ class Category extends Model
         return $this->hasMany('App\Category', 'parent_id');
     }
 
-    // Polymorphic relation with articles
-    public function articles()
-    {
-        return $this->morphedByMany('App\Article', 'categoryable');
-    }
-
     /**
      * @param $query
      * @param $count
