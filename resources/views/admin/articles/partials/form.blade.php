@@ -27,9 +27,11 @@
     <br>
 @endif
 @foreach($categories as $category)
-    @if($category->id == $article->category_id)
-        <label for="">Название категории</label>
-        <input type="text" class="form-control" value="{{$category->title}}" readonly>
+    @if(isset($category->id) && isset($article->category_id))
+        @if($category->id == $article->category_id)
+            <label for="">Название категории</label>
+            <input type="text" class="form-control" value="{{$category->title}}" readonly>
+        @endif
     @endif
 @endforeach
 
