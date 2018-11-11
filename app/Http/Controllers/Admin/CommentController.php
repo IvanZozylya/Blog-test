@@ -46,6 +46,12 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'status' => 'required|boolean',
+            'text' =>'required|string|between:2,500',
+            'article_id' => 'required|integer'
+        ]);
+
         Comment::create([
             'status' => $request->status,
             'text' => $request->text,
@@ -90,6 +96,11 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
+        $this->validate($request, [
+            'status' => 'required|boolean',
+            'text' =>'required|string|between:2,500',
+            'article_id' => 'required|integer'
+        ]);
         $comment->update([
             'status' => $request->status,
             'text' => $request->text,
