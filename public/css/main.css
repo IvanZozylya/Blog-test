@@ -12,8 +12,7 @@
 }
 
 .category-block-content:hover {
-    border-width: 2px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .category-title {
@@ -32,7 +31,6 @@
 }
 
 .article-block:hover {
-    border-width: 2px;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
@@ -49,4 +47,15 @@
 
 .margin-bottom {
     margin-bottom: 15px;
+}
+
+.app-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #3097D1;
+}
+
+.app-content {
+    font-size: 16px;
+    word-break: break-word;
 }

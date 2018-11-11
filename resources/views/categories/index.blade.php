@@ -4,6 +4,7 @@
 @section('content')
     <div class="container">
         <h1>List Categories: </h1>
+        <div>
         @foreach($categories as $category)
             <div class="col-md-4 category-block">
                 <div class="category-block-content" onclick="window.location='{{ route('show_category', $category->slug) }}'">
@@ -12,8 +13,10 @@
                 </div>
             </div>
         @endforeach
-        <div class="pagination pull-left">
-            {{ $categories->links() }}
+        </div>
+        <div class="pagination row">
+            <div class="pull-left">
+                {{ $categories->links() }}</div>
         </div>
     </div>
 @endsection

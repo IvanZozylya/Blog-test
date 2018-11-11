@@ -6,20 +6,42 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-sm-12">
-                <h1>Title:</h1><h1 class="btn-primary"> <strong>{{$article->title}}</strong></h1>
-
-                <img src="/images/uploads/articles/{{$article->image}}" alt="Avatar">
-                <hr>
-                <h3>Short_description:</h3><h3 class="btn-primary"><strong>{!! $article->description_short !!}</strong></h3>
-                <h3>Description:</h3><br>
-                    <textarea class="btn-primary" name="" id="" cols="160" rows="10" readonly>{{$article->description}}</textarea>
-
-                <h1>Author:<span class="btn-primary"> <strong>{{$user->name}}</strong></span></h1>
+            <div class="col-md-12">
+                <h1>{{$article->title}}</h1>
             </div>
-            <hr>
         </div>
 
+        <div class="row">
+            <div class="col-md-8">
+                <img src="/images/uploads/articles/{{$article->image}}" alt="Avatar">
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="app-label">Author:</label>
+                    <div class="app-content">{{ $user->name }}</div>
+                </div>
+                <div class="form-group">
+                    <label class="app-label">Short_description:</label>
+                    <div class="app-content">{!! $article->description_short !!}</div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="app-content">{{$article->description}}</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Коментарии</h3>
+            </div>
+        </div>
         @include('comments.comments_block', ['essence' => $article])
     </div>
 @endsection

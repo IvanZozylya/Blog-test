@@ -99,12 +99,10 @@ class CommentController extends Controller
         $this->validate($request, [
             'status' => 'required|boolean',
             'text' =>'required|string|between:2,500',
-            'article_id' => 'required|integer'
         ]);
         $comment->update([
             'status' => $request->status,
             'text' => $request->text,
-            'article_id' => $request->article_id,
             'user_id' => Auth::user()->id,
         ]);
 

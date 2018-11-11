@@ -19,7 +19,7 @@ class ArticleController extends Controller
     {
         return view('articles.create', [
             'article' => [],
-            'categories' => Category::all(),
+            'categories' => Category::where('published', 1)->orderBy('created_at','desc')->paginate(12)
         ]);
     }
 
@@ -35,7 +35,7 @@ class ArticleController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,giv,svg|max:2048',
             'title' => 'required|string|min:6',
             'published' => 'required|boolean',
-            'description_short' => 'required|max:30',
+            'description_short' => 'required|max:50',
             'description' => 'required|max:2048|min:10',
             'category_id' => 'required|int'
         ]);

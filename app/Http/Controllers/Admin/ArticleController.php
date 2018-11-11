@@ -77,6 +77,7 @@ class ArticleController extends Controller
             'description' => $request->description,
             'description_short' => $request->description_short,
             'published' => $request->published,
+            'category_id' => $request->category_id,
             'image' => $filename,
             'meta_title' => $request->meta_title,
             'meta_description' => $request->meta_description,

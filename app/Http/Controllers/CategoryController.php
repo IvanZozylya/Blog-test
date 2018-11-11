@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function index()
     {
         return view('categories.index', [
-            'categories' => Category::paginate(10)
+            'categories' => Category::where('published', 1)->orderBy('created_at','desc')->paginate(12)
         ]);
     }
 
@@ -21,7 +21,7 @@ class CategoryController extends Controller
     public function show($slug)
     {
         $category = Category::where('slug', $slug)->first();
-        $articles = Article::where('category_id',$category->id)->orderBy('id','desc')->paginate(5);
+        $articles = Article::where('category_id',$category->id)->where('published', 1)->orderBy('id','desc')->paginate(5);
 
         return view('categories.show', [
             'category' => $category,

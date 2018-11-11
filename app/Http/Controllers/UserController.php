@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Storage;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
@@ -33,7 +34,10 @@ class UserController extends Controller
                 $avatar = $request->file('avatar');
                 $filename = time() . '.' . $avatar->getClientOriginalExtension();
                 Image::make($avatar)->resize(300, 300)->save(public_path('images/uploads/avatars/' . $filename));
+
                 $user = Auth::user();
+//                $oldImage = $user['avatar'];
+//                Storage::delete(public_path('images/uploads/avatars/1541967121.jpeg'));
                 $user->avatar = $filename;
                 $user->save();
             }
@@ -41,4 +45,5 @@ class UserController extends Controller
         return view('profile', array('user' => Auth::user()));
 
     }
+
 }
