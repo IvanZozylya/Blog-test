@@ -10,16 +10,24 @@
 </select>
 
 <label for="">Комментарий</label>
-<textarea name="text" id="" cols="30" rows="10" class="form-control" placeholder="Ваш комментарий" required>{{$comment->text or ""}}</textarea>
+<textarea name="text" id="" cols="30" rows="10" class="form-control" placeholder="Ваш комментарий"
+          required>{{$comment->text or ""}}</textarea>
 
 <label for="">Выберите новость</label>
 <select class="form-control" name="article_id">
     @foreach($categories as $category)
         <optgroup label="<-{{$category->title}}->">
+
             @foreach($articles as $article)
-                        @if($category->id == $article->category_id)
-                <option value="{{$article->id}}">{{$article->title}}</option>
+
+                @if($category->id == $article->category_id)
+                    @if(isset($comment->article_id))
+                        @if($comment->article_id == $article->id)
+                            <option value="{{$article->id}}" selected>{{$article->title}}</option>
                         @endif
+                    @endif
+                    <option value="{{$article->id}}">{{$article->title}}</option>
+                @endif
             @endforeach
         </optgroup>
     @endforeach

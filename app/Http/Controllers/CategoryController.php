@@ -12,7 +12,7 @@ class CategoryController extends Controller
     public function index()
     {
         return view('categories.index', [
-            'categories' => Category::paginate(2)
+            'categories' => Category::paginate(10)
         ]);
     }
 
@@ -23,7 +23,7 @@ class CategoryController extends Controller
 
         return view('categories.show', [
             'category' => $category,
-            'articles' => $category->articles()->where(['published'=> 1,])->orderBy('id','desc')->paginate(2),
+            'articles' => $category->articles()->where(['published'=> 1,])->orderBy('id','desc')->paginate(10),
         ]);
     }
 }

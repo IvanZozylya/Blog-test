@@ -74,7 +74,11 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {
-        //
+        return view('admin.comments.edit', [
+            'comment' => $comment,
+            'articles' => Article::all(),
+            'categories' => Category::all(),
+        ]);
     }
 
     /**
@@ -86,7 +90,14 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        //
+        $comment->update([
+            'status' => $request->status,
+            'text' => $request->text,
+            'article_id' => $request->article_id,
+            'user_id' => Auth::user()->id,
+        ]);
+
+        return redirect()->route('admin.comment.index');
     }
 
     /**
@@ -97,6 +108,8 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+
+        return redirect()->route('admin.comment.index');
     }
 }
