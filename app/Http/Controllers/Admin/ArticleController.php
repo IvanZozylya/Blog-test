@@ -115,7 +115,7 @@ class ArticleController extends Controller
     {
         return view('admin.articles.edit', [
             'article' => $article,
-            'categories' => Category::with('children')->where('parent_id', 0)->get(),
+            'categories' => Category::all(),
             'delimiter' => ''
         ]);
     }
@@ -161,12 +161,6 @@ class ArticleController extends Controller
             'meta_keyword' => $request->meta_keyword,
             'modified_by' => $request->modified_by,
         ]);
-
-        // Categories
-        $article->categories()->detach();
-        if ($request->input('categories')) :
-            $article->categories()->attach($request->input('categories'));
-        endif;
 
         return redirect()->route('admin.article.index');
     }
