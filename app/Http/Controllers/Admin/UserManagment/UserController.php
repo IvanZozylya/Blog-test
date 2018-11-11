@@ -100,10 +100,18 @@ class UserController extends Controller
                 Rule::unique('users')->ignore($user->id)
             ],
             'password' => 'nullable|string|min:6|confirmed',
+            'is_admin' => 'boolean',
         ]);
 
         $user->name = $request['name'];
         $user->email = $request['email'];
+
+        if ($request->input('is_admin') == true) {
+            $user->is_admin = $request['is_admin'];
+        } else {
+            $user->is_admin = false;
+        }
+        
         $request['password'] == null ?: $user->password = bcrypt($request['password']);
         $user->save();
 
