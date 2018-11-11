@@ -11,7 +11,15 @@
         @endcomponent
 
         <hr/>
-
+            @if(count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         <form action="{{route('admin.comment.update', $comment)}}" class="form-horizontal" method="post">
             <input type="hidden" name="_method" value="put">
             {{csrf_field()}}

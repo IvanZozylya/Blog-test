@@ -20,7 +20,6 @@ class ArticleController extends Controller
         return view('articles.create', [
             'article' => [],
             'categories' => Category::all(),
-            'delimiter' => ''
         ]);
     }
 
@@ -71,11 +70,6 @@ class ArticleController extends Controller
             'meta_keyword' => $request->meta_keyword,
             'created_by' => $request->created_by,
         ]);
-
-        // Categories
-        if ($request->input('categories')) :
-            $article->categories()->attach($request->input('categories'));
-        endif;
 
         return redirect()->route('all_categories');
     }
