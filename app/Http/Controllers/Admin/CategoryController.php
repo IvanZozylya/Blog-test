@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Intervention\Image\Facades\Image;
+
 class CategoryController extends Controller
 {
     /**
@@ -40,7 +42,50 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        Category::create($request->all());
+        //Валидация полей
+        $this->validate($request, [
+            'image' => 'image|mimes:jpeg,png,jpg,giv,svg|max:2048',
+            'title' => 'required|string|between:2,100',
+            'published' => 'required|boolean',
+
+        ]);
+
+        // Handle the user upload of avatar
+        if ($request->hasFile('image')) {
+
+
+            //verify validation
+            if ($request->file('image')->isValid()) {
+
+                //Получить последнюю категорию
+                $lastCategory = Category::OrderBy('id','desc')->first();
+
+                //Изменяем ее значение на +1
+                if(!empty($lastCategory)){
+                    $lastId = $lastCategory->id + 1;
+                }else{
+                    $lastId = 1;
+                }
+
+                //save image
+                $image = $request->file('image');
+                $filename = $lastId . '.' . $image->getClientOriginalExtension();
+                Image::make($image)->resize(700, 500)->save(public_path('images/uploads/categories/' . $filename));
+
+            }
+        } else {
+
+            $filename = 'default.jpg';
+        }
+
+        Category::create([
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'published' => $request->published,
+            'image' => $filename,
+            'created_by' => $request->created_by,
+        ]);
+
         return redirect()->route('admin.category.index');
     }
     /**
@@ -76,7 +121,46 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $category->update($request->except('slug'));
+        //Валидация полей
+        $this->validate($request, [
+            'image' => 'image|mimes:jpeg,png,jpg,giv,svg|max:2048',
+            'title' => 'required|string|between:2,100',
+            'published' => 'required|boolean',
+
+        ]);
+
+        // Handle the user upload of avatar
+        if ($request->hasFile('image')) {
+
+
+            //verify validation
+            if ($request->file('image')->isValid()) {
+
+                //Удаление старой картинки
+                $oldImage = $category['image'];
+                if ($oldImage != 'default.jpg') {
+                    if (file_exists(public_path('/images/uploads/categories/' . $oldImage))) {
+                        unlink(public_path('images/uploads/categories/' . $oldImage));
+                    }
+                }
+
+                //save new image
+                $image = $request->file('image');
+                $filename = $category['id'] . '.' . $image->getClientOriginalExtension();
+                Image::make($image)->resize(700, 500)->save(public_path('images/uploads/categories/' . $filename));
+
+            }
+        } else {
+            $filename = $category->image;
+        }
+
+        $category->update([
+            'title' => $request->title,
+            'published' => $request->published,
+            'image' => $filename,
+            'modified_by' => $request->modified_by,
+        ]);
+
         return redirect()->route('admin.category.index');
     }
     /**

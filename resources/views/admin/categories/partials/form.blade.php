@@ -15,6 +15,10 @@
 <label for="">Slug</label>
 <input class="form-control" type="text" name="slug" placeholder="Автоматическая генерация" value="{{$category->slug or ""}}" readonly="">
 
+<img src="/images/uploads/categories/{{$category->image or ""}}" alt=""><br>
+<label for="">Загрузка изображения</label>
+<input type="file" name="image" accept="image/*" id="image">
+
 <hr />
 
 <input class="btn btn-primary" type="submit" value="Сохранить">

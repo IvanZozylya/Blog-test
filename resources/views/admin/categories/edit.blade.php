@@ -11,10 +11,18 @@
         @endcomponent
 
         <hr/>
-
-        <form action="{{route('admin.category.update', $category)}}" class="form-horizontal" method="post">
-            <input type="hidden" name="_method" value="put">
+            @if(count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        <form action="{{route('admin.category.update', $category)}}" class="form-horizontal" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
+
             @include('admin.categories.partials.form')
 
             <input type="hidden" name="modified_by" value="{{Auth::id()}}">

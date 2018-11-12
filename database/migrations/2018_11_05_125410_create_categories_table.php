@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->tinyInteger('published')->nullable();
+            $table->string('image')->default('default.jpg');
             $table->integer('created_by')->nullable();
             $table->integer('modified_by')->nullable();
             $table->timestamps();
