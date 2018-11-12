@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 class Category extends Model
 {
     // Mass assigned
-    protected $fillable = ['title', 'slug', 'parent_id', 'published', 'created_by', 'modified_by'];
+    protected $fillable = ['title', 'slug', 'parent_id', 'published', 'created_by', 'modified_by', 'image'];
 
     // Mutators
     public function setSlugAttribute($value)

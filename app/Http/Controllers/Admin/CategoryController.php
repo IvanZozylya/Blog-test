@@ -53,12 +53,11 @@ class CategoryController extends Controller
         // Handle the user upload of avatar
         if ($request->hasFile('image')) {
 
-
             //verify validation
             if ($request->file('image')->isValid()) {
 
                 //Получить последнюю категорию
-                $lastCategory = Category::OrderBy('id','desc')->first();
+                $lastCategory = Category::orderBy('id','desc')->first();
 
                 //Изменяем ее значение на +1
                 if(!empty($lastCategory)){
@@ -70,7 +69,7 @@ class CategoryController extends Controller
                 //save image
                 $image = $request->file('image');
                 $filename = $lastId . '.' . $image->getClientOriginalExtension();
-                Image::make($image)->resize(700, 500)->save(public_path('images/uploads/categories/' . $filename));
+                Image::make($image)->resize(250, 250)->save(public_path('images/uploads/categories/' . $filename));
 
             }
         } else {
@@ -138,6 +137,7 @@ class CategoryController extends Controller
 
                 //Удаление старой картинки
                 $oldImage = $category['image'];
+
                 if ($oldImage != 'default.jpg') {
                     if (file_exists(public_path('/images/uploads/categories/' . $oldImage))) {
                         unlink(public_path('images/uploads/categories/' . $oldImage));
@@ -147,7 +147,7 @@ class CategoryController extends Controller
                 //save new image
                 $image = $request->file('image');
                 $filename = $category['id'] . '.' . $image->getClientOriginalExtension();
-                Image::make($image)->resize(700, 500)->save(public_path('images/uploads/categories/' . $filename));
+                Image::make($image)->resize(250, 250)->save(public_path('images/uploads/categories/' . $filename));
 
             }
         } else {

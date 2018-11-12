@@ -21,6 +21,7 @@
                 </div>
             @endif
         <form action="{{route('admin.category.update', $category)}}" class="form-horizontal" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="_method" value="put">
             {{csrf_field()}}
 
             @include('admin.categories.partials.form')

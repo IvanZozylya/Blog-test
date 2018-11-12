@@ -10,7 +10,7 @@
                     <div class="category-block-content" onclick="window.location='{{ route('show_category', $category->slug) }}'">
                         <p class="category-title">{{$category->title}}</p>
                         <div class="text-center">
-                            <img src="{{asset('images/uploads/categories/default.jpg')}}" style="max-height: 250px; max-width: 250px;" alt="">
+                            <img src="{{asset('images/uploads/categories/' .$category->image)}}" style="max-height: 250px; max-width: 250px;" alt="">
                         </div>
                         <span>Опубликовано: {{$category->created_at}}</span>
                     </div>

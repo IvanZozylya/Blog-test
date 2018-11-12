@@ -13,7 +13,7 @@
 
         <div class="row">
             <div class="col-md-8">
-                <img src="/images/uploads/articles/{{$article->image}}" alt="Avatar">
+                <img src="/images/uploads/articles/{{$article->image}}" alt="Image">
             </div>
             <div class="col-md-4">
                 <div class="form-group">
