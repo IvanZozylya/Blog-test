@@ -60,9 +60,17 @@ class ArticleController extends Controller
             //verify validation
             if ($request->file('image')->isValid()) {
 
+                //Получить последнюю новость
+                $lastArticle = Article::OrderBy('id','desc')->first();
+
+                //Изменяем ее значение на +1
+                if(!empty($lastArticle)){
+                    $lastId = $lastArticle->id + 1;
+                }
+
                 //save new image
                 $image = $request->file('image');
-                $filename = time() . '.' . $image->getClientOriginalExtension();
+                $filename = $lastId . '.' . $image->getClientOriginalExtension();
                 Image::make($image)->resize(700, 500)->save(public_path('images/uploads/articles/' . $filename));
 
             }
@@ -134,9 +142,17 @@ class ArticleController extends Controller
             //verify validation
             if ($request->file('image')->isValid()) {
 
+                //Удаление старой картинки
+                $oldImage = $article['image'];
+                if ($oldImage != 'default.jpg') {
+                    if (file_exists(public_path('/images/uploads/articles/' . $oldImage))) {
+                        unlink(public_path('images/uploads/articles/' . $oldImage));
+                    }
+                }
+
                 //save new image
                 $image = $request->file('image');
-                $filename = time() . '.' . $image->getClientOriginalExtension();
+                $filename = $article['id'] . '.' . $image->getClientOriginalExtension();
                 Image::make($image)->resize(700, 500)->save(public_path('images/uploads/articles/' . $filename));
 
             }
@@ -167,7 +183,6 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        $article->categories()->detach();
         $article->delete();
 
         return redirect()->route('admin.article.index');

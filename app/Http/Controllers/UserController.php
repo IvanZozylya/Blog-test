@@ -30,12 +30,22 @@ class UserController extends Controller
             //verify validation
             if ($request->file('avatar')->isValid()) {
 
+                $user = Auth::user();
+
+                //Удаление старой картинки
+                $oldImage = $user['avatar'];
+                if ($oldImage != 'default.jpg') {
+                    if (file_exists(public_path('/images/uploads/avatars/' . $oldImage))) {
+                        unlink(public_path('images/uploads/avatars/' . $oldImage));
+                    }
+                }
+
                 //save new avatar
                 $avatar = $request->file('avatar');
-                $filename = time() . '.' . $avatar->getClientOriginalExtension();
+                $filename = $user->id . '.' . $avatar->getClientOriginalExtension();
                 Image::make($avatar)->resize(300, 300)->save(public_path('images/uploads/avatars/' . $filename));
 
-                $user = Auth::user();
+
 //                $oldImage = $user['avatar'];
 //                Storage::delete(public_path('images/uploads/avatars/1541967121.jpeg'));
                 $user->avatar = $filename;

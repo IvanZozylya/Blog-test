@@ -46,10 +46,19 @@ class ArticleController extends Controller
             //verify validation
             if ($request->file('image')->isValid()) {
 
+                //Получить последнюю новость
+                $lastArticle = Article::OrderBy('id','desc')->first();
+
+                //Изменяем ее значение на +1
+                if(!empty($lastArticle)){
+                    $lastId = $lastArticle->id + 1;
+                }
+
                 //save new image
                 $image = $request->file('image');
-                $filename = time() . '.' . $image->getClientOriginalExtension();
+                $filename = $lastId . '.' . $image->getClientOriginalExtension();
                 Image::make($image)->resize(700, 500)->save(public_path('images/uploads/articles/' . $filename));
+
 
             }
         } else {
