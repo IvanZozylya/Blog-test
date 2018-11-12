@@ -52,6 +52,8 @@ class ArticleController extends Controller
                 //Изменяем ее значение на +1
                 if(!empty($lastArticle)){
                     $lastId = $lastArticle->id + 1;
+                }else{
+                    $lastId = 1;
                 }
 
                 //save new image

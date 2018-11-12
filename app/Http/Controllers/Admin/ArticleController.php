@@ -66,9 +66,11 @@ class ArticleController extends Controller
                 //Изменяем ее значение на +1
                 if(!empty($lastArticle)){
                     $lastId = $lastArticle->id + 1;
+                }else{
+                    $lastId = 1;
                 }
 
-                //save new image
+                //save image
                 $image = $request->file('image');
                 $filename = $lastId . '.' . $image->getClientOriginalExtension();
                 Image::make($image)->resize(700, 500)->save(public_path('images/uploads/articles/' . $filename));
