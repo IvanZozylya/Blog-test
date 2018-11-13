@@ -57,12 +57,18 @@ class CategoryService implements CategoryServiceInterface
 
     public function update(Category $category, $data)
     {
-        $image = isset($data['file']) ? $data['file'] : null;
+        if (isset($data['file'])) {
+            return $category->update([
+                'title' => $data['title'],
+                'published' => $data['published'],
+                'image' => $this->imageService->replaceImageAndGetName($data['file'], 'categories', $category['id'], $category['image']),
+                'modified_by' => $data['modified_by'],
+            ]);
+        }
 
-        $category->update([
+        return $category->update([
             'title' => $data['title'],
             'published' => $data['published'],
-            'image' => $this->imageService->replaceImageAndGetName($image, 'categories', $category['id'], $category['image']),
             'modified_by' => $data['modified_by'],
         ]);
     }

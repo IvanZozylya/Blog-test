@@ -23,19 +23,23 @@ class InterventionImageService implements ImageServiceInterface
 
             return $filename;
         } else {
-            return isset($oldImageToRemove) ?  $oldImageToRemove : 'default.jpg';
+            return 'default.jpg';
         }
     }
 
-    function replaceImageAndGetName($imageFile, $path, $entityId, $oldImageToRemove)
+    function replaceImageAndGetName($newImageFile, $path, $entityId, $oldImageName)
     {
+        if (!$newImageFile) {
+            return $oldImageName;
+        }
+
         //remove old image
-        if ($oldImageToRemove != 'default.jpg') {
-            if (file_exists(public_path('/images/uploads/' . $path . '/' . $oldImageToRemove))) {
-                unlink(public_path('images/uploads/' . $path . '/' . $oldImageToRemove));
+        if ($oldImageName != 'default.jpg') {
+            if (file_exists(public_path('/images/uploads/' . $path . '/' . $oldImageName))) {
+                unlink(public_path('images/uploads/' . $path . '/' . $oldImageName));
             }
         }
 
-        return $this->saveImageAndGetName($imageFile, $path, $entityId);
+        return $this->saveImageAndGetName($newImageFile, $path, $entityId);
     }
 }
