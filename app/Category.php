@@ -18,11 +18,6 @@ class Category extends Model
         $this->attributes['slug'] = Str::slug(mb_substr($this->title, 0, 40) . "-" . \Carbon\Carbon::now()->format('dmyHi'), '-');
     }
 
-    public function children()
-    {
-        return $this->hasMany('App\Category', 'parent_id');
-    }
-
     /**
      * @param $query
      * @param $count
@@ -31,5 +26,11 @@ class Category extends Model
     public function scopeLastCategories($query, $count)
     {
         return $query->orderBy('created_at', 'desc')->take($count)->get();
+    }
+
+
+    public function articles()
+    {
+        return $this->hasMany('App\Article', 'category_id', 'id');
     }
 }

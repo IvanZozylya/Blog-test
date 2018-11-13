@@ -4,7 +4,7 @@
 @section('content')
     <div class="container">
         <h1>List Categories: </h1>
-        <div>
+        <div class="clearfix">
         @foreach($categories as $category)
             <div class="col-md-4 category-block">
                     <div class="category-block-content" onclick="window.location='{{ route('show_category', $category->slug) }}'">

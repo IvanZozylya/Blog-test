@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('App\Services\CategoryServiceInterface', 'App\Services\CategoryService');
+        $this->app->bind('App\Services\ImageServiceInterface', 'App\Services\InterventionImageService');
     }
 }
