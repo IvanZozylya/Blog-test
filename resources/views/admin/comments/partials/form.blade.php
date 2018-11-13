@@ -1,8 +1,8 @@
 <label for="">Статус</label>
 <select class="form-control" name="status">
     @if (isset($comment->id))
-        <option value="0" @if ($comment->status == 0) selected="" @endif>Не опубликовано</option>
-        <option value="1" @if ($comment->status == 1) selected="" @endif>Опубликовано</option>
+        <option value="0" @if (!$comment->status) selected="" @endif>Не опубликовано</option>
+        <option value="1" @if ($comment->status) selected="" @endif>Опубликовано</option>
     @else
         <option value="0">Не опубликовано</option>
         <option value="1">Опубликовано</option>

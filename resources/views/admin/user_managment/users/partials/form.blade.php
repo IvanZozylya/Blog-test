@@ -22,19 +22,16 @@
 <label for="">Confirm</label>
 <input type="password" class="form-control" name="password_confirmation">
 
-<label class="form-check-label" for="gridCheck">
-    Admin
-</label>
 @if(isset($user->is_admin))
-    @if($user->is_admin == 1)
+    @if($user->is_admin)
+        <label class="form-check-label" for="gridCheck">
+            Admin
+        </label>
         <input type="checkbox" value="{{$user->is_admin}}" name="is_admin" checked>
-@else
+    @else
     <input type="checkbox" name="is_admin" value="1">
+    @endif
 @endif
-@endif
-
-
-
 
 <hr/>
 

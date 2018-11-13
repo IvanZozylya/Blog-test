@@ -5,7 +5,7 @@
             <div class="comment-author vcard">
                 <img alt="" src="/images/uploads/avatars/{{ $item->user['avatar'] }}" class="avatar" height="75"
                      width="75"/>
-                <cite class="fn">{{$item->user['name']}} @if($item->user['is_admin'] === 1)
+                <cite class="fn">{{$item->user['name']}} @if($item->user['is_admin'])
                         {{'(Admin)'}}
                     @endif
                 </cite>
