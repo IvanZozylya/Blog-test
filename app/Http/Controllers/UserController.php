@@ -19,7 +19,6 @@ class UserController extends Controller
 
     public function update_avatar(Request $request)
     {
-
         // Handle the user upload of avatar
         if ($request->hasFile('avatar')) {
 
@@ -29,10 +28,8 @@ class UserController extends Controller
 
             //verify validation
             if ($request->file('avatar')->isValid()) {
-
                 $user = Auth::user();
-
-                //Удаление старой картинки
+                // Old image removing
                 $oldImage = $user['avatar'];
                 if ($oldImage != 'default.jpg') {
                     if (file_exists(public_path('/images/uploads/avatars/' . $oldImage))) {
@@ -45,15 +42,10 @@ class UserController extends Controller
                 $filename = $user->id . '.' . $avatar->getClientOriginalExtension();
                 Image::make($avatar)->resize(300, 300)->save(public_path('images/uploads/avatars/' . $filename));
 
-
-//                $oldImage = $user['avatar'];
-//                Storage::delete(public_path('images/uploads/avatars/1541967121.jpeg'));
                 $user->avatar = $filename;
                 $user->save();
             }
         }
         return view('profile', array('user' => Auth::user()));
-
     }
-
 }

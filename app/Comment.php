@@ -15,7 +15,7 @@ class Comment extends Model
     protected $guarded = [];
 
     /**
-     * Связь с моделью Article
+     * Relation with Article model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function article()
@@ -24,7 +24,7 @@ class Comment extends Model
     }
 
     /**
-     * Связь с моделью User
+     * Relations with User model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()

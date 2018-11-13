@@ -10,6 +10,7 @@ class CategoryController extends Controller
 {
 
     private $categoryService;
+
     /**
      * CategoryController constructor.
      */

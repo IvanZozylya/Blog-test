@@ -47,7 +47,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //Валидация полей
+        //Fields validation
         $this->validate($request, [
             'image' => 'image|mimes:jpeg,png,jpg,giv,svg|max:2048',
             'title' => 'required|string|between:2,100',
@@ -91,7 +91,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //Валидация полей
+        //Fields validation
         $this->validate($request, [
             'image' => 'image|mimes:jpeg,png,jpg,giv,svg|max:2048',
             'title' => 'required|string|between:2,100',

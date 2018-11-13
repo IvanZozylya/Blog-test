@@ -19,7 +19,7 @@ class ArticleController extends Controller
     {
         return view('articles.create', [
             'article' => [],
-            'categories' => Category::where('published', 1)->orderBy('created_at','desc')->paginate(12)
+            'categories' => Category::where('published', 1)->orderBy('created_at', 'desc')->paginate(12)
         ]);
     }
 
@@ -41,18 +41,13 @@ class ArticleController extends Controller
         ]);
         // Handle the user upload of avatar
         if ($request->hasFile('image')) {
-
-
-            //verify validation
             if ($request->file('image')->isValid()) {
 
-                //Получить последнюю новость
-                $lastArticle = Article::OrderBy('id','desc')->first();
-
-                //Изменяем ее значение на +1
-                if(!empty($lastArticle)){
+                // get latest news
+                $lastArticle = Article::OrderBy('id', 'desc')->first();
+                if (!empty($lastArticle)) {
                     $lastId = $lastArticle->id + 1;
-                }else{
+                } else {
                     $lastId = 1;
                 }
 
@@ -60,11 +55,8 @@ class ArticleController extends Controller
                 $image = $request->file('image');
                 $filename = $lastId . '.' . $image->getClientOriginalExtension();
                 Image::make($image)->resize(700, 500)->save(public_path('images/uploads/articles/' . $filename));
-
-
             }
         } else {
-
             $filename = 'default.jpg';
         }
 
